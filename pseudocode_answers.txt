@@ -1,0 +1,48 @@
+Short Answer
+1. Why do programmers use pseudocode?
+The point is to determine in advance the logic of the program and split it down into basic steps.  This can help find problems and determine a good solution before you start coding.
+
+2. If you run pseudocode on your computer what would happen?
+You would get an error message because it's not an actual language that can be understood/compiled by the computer.
+
+Programming Assignment
+Write the following algorithms in pseudocode:
+
+1. Create a function that takes two numbers and prints out the greater number.
+
+FUNCTION compareTwoNumbers
+    INPUT numberA
+    INPUT numberB
+    IF numberA > numberB RETURN A
+    ELSE return B
+ENDFUNCTION
+
+2.  Create a function that prints out the numbers from 1 to 100.
+
+FUNCTION printNumbers
+    SET number to 1
+    WHILE number < 101
+        PRINT number
+        number++
+    ENDWHILE
+ENDFUNCTION
+
+3.  Create a function that searches for a specific entry in a phonebook.
+
+FUNCTION findEntry
+    INPUT numberToFind
+    INPUT phonebookEntries
+    Call the Array.find() method on the phonebookEntries using numberToFind parameters
+ENDFUNCTION
+
+
+4.  Using the pseudocode you wrote for the previous question, implement it in any computer language of your choice.
+
+const phonebookEntries = [ {name: "Anne", number: 3334657}, {name: "Sarah", number: 3334887}, {name: "Julie", number: 3322657} ];
+
+function findEntry(numberToFind, phonebookEntries) {
+  return phonebookEntries.find( (entry, number) => entry.number === numberToFind);
+}
+
+findEntry(3334657, phonebookEntries);
+//returns the object { name: 'Anne', number: 3334657 }
