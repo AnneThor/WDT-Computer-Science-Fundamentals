@@ -1,0 +1,61 @@
+Exercises
+For exercises requiring code, you are free to use the language of your choice.
+
+Give all the code and written answers in a file named intro-data-structures.txt:
+
+1. A line of people at an amusement park ride.
+
+The line is composed of members, represented as strings.
+There is a front to the line, as well as a back.
+When someone enters the line, place them at the end.
+People may leave the line whenever they see fit, and those behind them take their place.
+Given the above real-world information, use an array data structure to code the following solution.
+
+a) Use an array input: ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+memberLine = ["Vivian", "Ava", "Josh", "Patrick", "Mike"];
+
+b) Insert a new person, "Mary" at the end of the line. In other words, you should insert Mary after Mike.
+
+No reason to write a separate function for this, it's one line of code:
+
+memberLine.push("Mary");
+
+c) Find a person in line named "Josh." This function should return the position of 2 in the array, (recall that arrays are 0-based).
+d) Find a person in line named "Emily." What should your function return if it does not find the item in the array?
+
+function findMember(memberline, personToSearch) {
+  if ( memberLine.indexOf(personToSearch) === -1 ) {
+    console.log("This member is not currently in line");
+  } else {
+    return memberLine.indexOf(personToSearch);
+  }
+}
+
+That function will find a member if they are there or not.
+
+findMember(memberLine, "Josh"); //returns 2, the index of "Josh"
+findMember(memberLine, "Emily"); //returns an error message "This member is not currently in line"
+
+e) What if Ava wants to allow a friend, "Melissa", to cut in line in front of her? How would you code this so Melissa appears before Ava?
+
+function handleMemberCut(memberLine, newMember, memberAllowingCut) {
+  const indexToMove = memberLine.indexOf(memberAllowingCut);
+  memberLine.splice(indexToMove, 0, newMember);
+}
+
+f) If Patrick wants to leave the line, how would you delete him from the array?
+
+function handleMemberLeaving(memberLine, memberLeaving) {
+  const indexToRemove = memberLine.indexOf(memberLeaving);
+  memberLine.splice(indexToRemove, 1);
+}
+
+
+2. Provide another real-world example that you can model using a data structure.
+
+You could make an array of objects holding a persons name, drivers license number, address, model of car, etc. and use that to calculate and generate billing statement for car tabs/registration docs.
+
+3. How would your data structure allow developers to access and manipulate the data?
+
+If you used an array of objects you could use any of the built in array functions that the programming language you are using has.  You can also access and customize the methods or add your own methods if you need a specific functionality.  The problem has to do when the data sets get really big and it becomes expensive to use search methods which loop through every array index.
