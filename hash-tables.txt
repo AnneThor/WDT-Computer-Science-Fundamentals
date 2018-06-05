@@ -1,0 +1,102 @@
+Exercises
+For exercises requiring code, you are free to use the language of your choice.
+
+1.  What is a hash table?
+
+Has tables are a data structure that contain key value pairs.  Using a hash code with % data is divided into sub arrays/linked lists of the main area (if you have collisions).
+
+2.  What is hashing?
+Hashing takes the key and uses a hash function to turn the key into the actual array index where the value will be stored.
+
+3.  How does a hash table store data?
+It stores it into different buckets in the array, and from there when there are collisions it will make a linked list in that bucket.  Improves searching time because you go straight to the bucket and then parse a smaller set. 
+
+3.  How are hash tables and objects different?
+Objects are data structures that hold a static number of distinct values that can be of different types.  Hash tables can hold objects, but they should be used when you have a data set of variable number where each piece in the data contains the same subset of data.
+
+
+4.  Determine whether you would use a hash table or an object to store each of the following pieces of data:
+
+ - A list of pets and their unique names.
+I would use a hash table, why would I want them all in one object.
+
+- The name, age, and the birthday of your best friend.
+Small and distinct data set, I'd use an object.
+
+- The name and location of every company in a given city.
+Large set of data - I'd use a hash table key-company name, value-location.
+
+- All of the books checked out from a library by a particular individual.
+Object.
+
+- The primary and secondary phone numbers for a contact.
+Object.
+
+5.  Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
+
+function addCustomerInfo() {
+    var customerFirstName = prompt("Enter the customer first name", "First Name");
+    var customerLastName = prompt("Enter the customer last name", "Last Name");
+    var customerAddress = prompt("Enter customer address", "Address");
+    var customerPhone = prompt("Enter customer phone number", "Phone Number");
+    console.log(customerPhone);
+    const customerObject = {
+      firstName: customerFirstName,
+      lastName: customerLastName,
+      address: customerAddress,
+      telephone: customerPhone
+    }
+  customerDatabase.set(parseInt(customerPhone), customerObject);
+}
+
+function findCustomer() {
+  var customerTelephone = prompt("Enter phone number to look up", "Phone Number");
+  return customerDatabase.get(parseInt(customerTelephone));
+}
+
+
+6.  Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+
+inventory = new Map();
+
+function handleAddNewItem() {
+  var itemName = prompt("What is the item name?", "Item Name");
+  var itemQuantity = prompt("How many are in stock?", "Number in stock");
+  const item = {
+    name: itemName,
+    quantity: parseInt(itemQuantity)
+  }
+  inventory.set(itemName, item);
+}
+
+function handleIncreaseItemQuantity() {
+  var itemName = prompt("What is the item name?", "Item Name");
+  var additionalItems = prompt("How many additional" + itemName + "?", "Number");
+  var updItem = inventory.get(itemName);
+  updItem.quantity += parseInt(additionalItems);
+  inventory.set(itemName, updItem);
+}
+
+I didn't write it out, but you could reduce inventory or add pricing info, etc. etc.
+
+7.  Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+
+publisherMap = new Map();
+
+function handleAddNewspaper() {
+  var publisher = prompt("Who is the publisher", "Publisher");
+  var publication = prompt("What is the name of the publication", "Name of publication");
+  var publicationDate = prompt("What is the date of publication", "Publication Date");
+  const newEntry = {
+    publisher: publisher,
+    publication: publication,
+    publicationDate: publicationDate
+  }
+  publisherMap.set(publisher+publicationDate, newEntry);
+}
+
+function findByPublisher(publisher, publicationDate) {
+  return publisherMap.get(publisher+publicationDate);
+}
+
+I'm just adding the publisher and date to make the hash key, I'm not sure if that's exactly what this problem wants me to do.  You want it to be searchable by both things?  Really it will be searchable by whatever parameter I want if I make an iterator on it.
