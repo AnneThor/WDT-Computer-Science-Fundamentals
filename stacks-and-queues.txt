@@ -1,0 +1,73 @@
+Exercises
+For exercises requiring code, you are free to use the language of your choice.
+
+Provide all the code and written answers in a file named stacks_and_queues.txt:
+
+1. What is the main difference between a stack and a queue?
+
+The order that data is added and removed to them.  
+Stacks add a value to the top index (push), and this index is the first to be removed (pop).  LIFO structure.
+Queues use FIFO structure and the first element that is added to the queue is also the first one that will be removed.
+
+2. What are the similarities between stacks and queues?
+They both hold an array of data that can be manipulated in a similar way (i.e. add data to one end, remove data form one end).
+
+3.  Imagine you are an engineer tasked with implementing the UNDO and REDO options in a word processor such as Microsoft Word. Which data structure would you use for each option and why?
+
+You would want to use a stack for that otherwise you would have to iterate through a long queue.  If you store each key stroke on a stack, the last action will be the top of the stack.  To undo it, just pop it off the stack.  When you pop it off you could just push it onto another stack (the REDO stack) and when REDO is hit pop it off there.
+
+Programming Questions
+You may program the following question in any language of your choice. Before you begin coding, write out a plan as to how you will solve the question.
+
+1.  Given a string, reverse it using a stack. For example, the string "Bloc!" should be converted to "!colB".
+
+function reverseString(sampleString) {
+  const characterStack = []; 
+  for (i=0; i<sampleString.length; i++) {
+    characterStack.push(sampleString.charAt(i));
+  }
+  reverseString='';
+  for (i=0; i<sampleString.length; i++) {
+    reverseString += characterStack.pop();
+  }
+  return reverseString;
+}
+
+2.  Implement the delete functionality of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure.
+
+To delete an item, take all of the elements in the queue one at a time and put them at the end of the queue, except for the last one which should be deleted and returned.
+
+CLASS Stack
+ FUNCTION pop(queue)
+   SET the length of the queue to var length
+   SET the first value in the array (array[0]) as var last
+   LOOP through the array from array[1] to array[length-1] and set value to the position of array[ i- 1]
+   SET array[length-1] to null (to shorten the array)
+   RETURN last
+ END FUNCTION
+END CLASS
+
+
+3.  Fill in the methods for the following Queue class so that it will work as expected (FIFO).
+
+CLASS QUEUE
+ FUNCTION enqueue(element)
+   SET array[length] = element
+ END FUNCTION
+
+ FUNCTION dequeue
+   SET array[length-1] to var dequeueValue
+   SET array[length-1] to NULL
+   RETURN dequeueValue
+ END FUNCTION
+END CLASS
+
+
+
+
+
+
+
+
+
+
