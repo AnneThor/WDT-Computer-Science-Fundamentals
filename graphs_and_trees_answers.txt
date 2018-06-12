@@ -1,0 +1,134 @@
+1.  What is a binary tree and what makes it unique to other trees?
+
+Binary tree consists of a root node that has 2 child nodes (left and right).  These children nodes are of the same structure, each have 2 children.
+
+2.  What is a heuristic?
+
+A heuristic is a way of problem solving that employs the best practical method to immediately achieve a sufficiently good solution (not necessary an optimal or perfect solution).
+
+3.  What is another problem besides the shortest-path problem that requires the use of heuristics?
+
+What a question.  An example is some virus scanning software uses a heuristic approach of finding a certain pattern of file use/behavioral patterns that are indicative of certain types of viruses and inferring that files are infected.  Can work faster than a string scanner looking at every file or even be more successful in finding a virus because it looks at behavioral patterns rather than requiring the virus itself to be detected somewhere.
+
+4.  What is the difference between a depth-first search and a breadth-first search?
+
+A depth first search traverses the tree down to the leaf and then back up to find a value.  The breadth first search would first look to all nodes at the same depth, then move down to traverse their child nodes.
+
+5.  Explain in your own words what an undirected, a-cyclic, unweighted graph is.
+
+A graph that is non circular (has a start and an end node), that does not assign a weight value to the edges (no cost associated with traversing between any given nodes), and nodes are not directional with a clearly defined beginning and end.  
+
+That last point is confusing to me as I would therefore describe a doubly linked list as undirected, but I guess it is directional because the forward and backward linked do have a start and end fo the reference.  So I'm not sure I have encountered an undirected graph before or how you can define in code a relationship without one node containing the reference and the second node being the reference.
+
+6.  What kind of graph is a binary search tree?
+
+A-cyclic, directed, unweighted.
+
+Programming Questions
+For the following questions, describe in words how you could solve the problem and then do so. Use the depiction of the Binary Search Tree to refer to the examples.
+
+Binary Search Tree Image
+
+1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+
+Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
+
+This can be solved by recursively looking for the value.  First check the root node, if it is equal, return true.  If the value is less, run the search function on the left child, if it is more run the search function on the right child.  Add conditions for left child/right child being null/undefined (that means you have traversed the tree and the value does not exist). 
+
+I wrote out the function to build the tree, and I left my code under to build the tree you can run it that way to test it if you would like.
+
+I put all the code for this and the below question into the same class, so I'll just post it once at the bottom here.
+
+2.  Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+
+Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
+
+I will approach this by recursing to the common parent node, then adding the distance to the left value and right value from the common parent.  
+
+class BinarySearchTree {
+  constructor(value) {
+    this.value = value;
+    this.left = undefined;
+    this.right = undefined;
+  }
+
+  insert(value) {
+    var newNode = new BinarySearchTree(value);
+    function addNode(bst) {
+      if (bst.value >= value && bst.left === undefined) {
+        bst.left = newNode;
+      } else if (bst.value >= value) {
+        addNode(bst.left);
+      } else if (bst.value < value && bst.right === undefined) {
+        bst.right = newNode;
+      } else {
+        addNode(bst.right);
+      }
+    }
+    addNode(this);
+  }
+
+  searchValue(value) {
+      function search(bst) {
+        if (bst.value === value) {
+          return true;
+        } else if (bst.value > value && bst.left !== undefined) {
+          return search(bst.left);
+        } else if (bst.value < value && bst.right !== undefined) {
+          return search(bst.right);
+        } else {
+          return false;
+        }
+      }
+      return search(this);
+  }
+
+  findDistance(valueStart, valueEnd) {
+    //both values must be in this tree as a precondition to this function
+    if (this.searchValue(valueStart) === false || this.searchValue(valueEnd) === false) {
+      return;
+    }
+    //setting larger test value to right and smaller to left
+    var leftValue = valueStart > valueEnd ? valueEnd : valueStart;
+    var rightValue = valueStart < valueEnd ? valueEnd : valueStart;
+    var leftDistance = 0;
+    var rightDistance = 0;
+    function distance(bst) {
+      if (bst.value > valueStart && bst.value > valueEnd) {
+        distance(bst.left);
+      } else if (bst.value < valueStart && bst.value < valueEnd) {
+        distance(bst.right);
+      } else {
+        var refLeft = bst;
+        while (leftValue !== refLeft.value) {
+          leftDistance++;
+          refLeft = leftValue < refLeft.value ? refLeft.left : refLeft.right;
+        }
+        while (rightValue > bst.value) {
+          rightDistance++;
+          bst = bst.value < rightValue ? bst.right: bst.left;
+        }
+        return leftDistance+rightDistance;
+      }
+    }
+    return distance(this);
+  }
+
+
+}
+
+
+testTree = new BinarySearchTree(8);
+var add = [3,10,1,6,14,4,7,13];
+for (i=0; i<add.length; i++) {
+  testTree.insert(add[i]);
+}
+//console.log(testTree);
+
+console.log(testTree.searchValue(1));
+console.log(testTree.searchValue(140));
+
+console.log(testTree.findDistance(8,10));
+console.log(testTree.findDistance(1,14));
+
+
