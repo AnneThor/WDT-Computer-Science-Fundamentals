@@ -1,0 +1,42 @@
+Using proper pseudo-code, describe the following primitive algorithms:
+
+1. Making coffee;
+
+WHILE coffee beans are whole
+  Ground coffee beans
+ENDWHILE
+FILL coffee machine with water
+FILL filter with ground coffee
+INSERT filter to machine
+SET coffee machine to ON
+WHEN coffee pot is full, SET coffee machine to OFF
+
+2.  Washing dishes;
+Gather soap, sponge, dirty dishes
+Put soap on sponge
+WHILE dishes are dirty, turn on water
+  Scrub dishes with sponge until clean
+  Put dishes on drying rack
+ENDWHILE
+
+3.  A choice of your own, brushing teeth:
+Gather toothbrush, toothpaste, go to sink
+Put toothpaste on toothbrush
+Turn on water
+WHILE teeth are dirty, scrub with toothbrush
+  Scrub teeth with toothbrush until clean
+  Rinse toothbrush in water
+ENDWHILE
+Turn off water
+
+4.  As with the knot algorithm, there may be more than one way to solve the problem. It is essential to try to pick the best algorithm for a situation. Name three companies who created an algorithm that made them successful, e.g., Google's search algorithm. It doesn't need to be a tech example (such as a recipe or manufacturing a product). Google's algorithm produces more relevant results than other search engines; what about each of your cases make them stand out?
+
+Ford assembly line - increased speed, decreased cost of manufacturing automobiles
+
+Trader Joe's - eliminated marketing and middle men in order to provide one brand of products directly to consumers - reduces marketing costs, captures profit directly to brand
+
+Facebook face recognition algorithm - probably has an edge just by sheer number of datapoint to put in their composite faces
+
+5.  Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+
+Should look for the minimal number of operations (lowest cost) to get desired result while still accounting for edge cases so you don't encounter errors.
