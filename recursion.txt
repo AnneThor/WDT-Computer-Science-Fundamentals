@@ -1,0 +1,94 @@
+Exercises
+For exercises requiring code, you are free to use the language of your choice.
+
+1.  Define and compare recursion and iteration.
+
+Recursion is a process that repeats itself by breaking the larger problem into the most basic component and then passing the results back up the chain until the ultimate result is returned.
+
+Iteration involves repeating a process using a loop, but not calling the function itself again.
+
+2.  Name five algorithms that are commonly implemented by recursion.
+
+Searching files on a computer.
+Searching for values in a binary search tree.
+Printing values in a binary search tree.
+Quicksort algorithm can be implemented recursively.
+Command chain management systems.
+
+3.  When should you use recursion, and when should you avoid recursion? Give examples for each.
+
+You should use recursion when the solution is a combination of the result of smaller sub problems.  Binary search trees are a good example - each leaf has two nodes, so you keep making the search call until you reach the leaf nodes and then return back up the tree with the results.  You could also add values up part of a tree like that.
+
+You should avoid recursion when it is cheaper computationally to use an iterative solution.  If the recursive solution is going to cause a lot of unnecessary computations, then the iterative solution is preferable.  The Fibonacci sequence is a good example of that because you make so very many calls in the recursive solution to get the result.  As the data set gets very large it starts to make a lot of extra work.
+
+4.  Compare the recursive and iterative solutions to the three algorithms from the checkpoint (Factorial, Maximum, and Fibonacci). What is similar, and what is different?
+
+They can all be solved both ways (but actually every recursive problem can be solved iteratively).  The most obvious difference here is that the Maximum problem can easily be solved by looping over the data and just comparing values and the iterative solution is much more elegant.
+
+Actually, it seems that all 3 of these problems are better solved iteratively because the recursive solutions require a lot more repetitive calculations.
+
+The differences between the iterative and recursive solutions are that the iterative solutions tend to hold one value and then change it during the loop and return it at the end, while the recursive values reach the base case, then they pass the function result back up through the function calls to get the final output.
+
+5.  Given a multi-dimensional collection (such as an array) where the number of dimensions is unknown, write a recursive algorithm to count the number of items in the entire collection.
+
+function recurseArray(testArray) {
+  return arrayCount(testArray, 0);
+}
+
+function arrayCount(testArray, index) {
+  //return when index does not exist
+  //index starts at zero; increment with each call
+  if (testArray[index] === undefined) {
+    return index; //don't need to adjust bc zero indexed
+  } else {
+    console.log("current index", index);
+    return arrayCount(testArray, index+1);
+  }
+}
+
+6.  A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
+
+function isPalindrome(testInput) {
+  //if empty string or 1 character string return testTrue
+  if (testInput.length === 1 || testInput.length === 0 ) {
+    return true;
+  }
+  if (testInput.charAt(0) === testInput.charAt(testInput.length-1)) {
+    return isPalindrome(testInput.slice(1,-1));
+  }
+  return false;
+}
+
+
+7.  Laura and Xander are going door-to-door around their block looking for their lost cat. Write a recursive algorithm showing one way they can visit every house on their block exactly once.
+
+FUNCTION find cat IN array of houses
+  IF cat at house IS TRUE
+    Return TRUE
+  ELSE IF cat at house is false
+     CALL find cat on next house in array
+  END IF
+  RETURN FALSE	
+END 
+
+Which is implemented something like:
+
+function findCat(inputArray) {
+  return findCatRecursive(inputArray, 0);
+}
+
+function findCatRecursive(inputArray, index) {
+  if (inputArray[index] === undefined) {
+    return -1;
+  } if (inputArray[index] === true) {
+    return index;
+  } else {
+    return findCatRecursive(inputArray, index+1)
+  }
+}
+
+var inputArray = [false, false, false, false, true];
+
+console.log( findCat(inputArray) ); 
+
+You would never use this implementation, let me know if you are looking for something a bit different.

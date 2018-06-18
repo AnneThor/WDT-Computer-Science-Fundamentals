@@ -17,6 +17,97 @@ You may program the following questions in any language of your choice (JavaScri
 
 Before beginning to code, write out a plan explaining how to solve the question.
 
+
+3.  The Linked List push function should take a value, create a node, and add it to the end of a list. Below is a push function for a singly linked list. However, there is something wrong with it. Find the bug and fix the code.
+
+LinkedList.prototype.push = function(element) {
+ SET node = {
+   value: element,
+   next: null
+ }
+
+ IF the head node does not exist
+   THEN SET head to node
+ ELSE
+   SET current node to head
+   WHILE current.next is not null
+      current = current.next
+   ENDWHILE
+   SET current.next to node 
+ }
+}
+
+OK, just added the functionality to use a reference node (current node) to iterate through until the tail and then add the new node there.
+
+
+4.  Given an unsorted singly linked list, remove all duplicates from the linked list.
+Example
+Input: a -> c -> d -> d -> a
+Output: a -> c -> d
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 3.  The Linked List push function should take a value, create a node, and add it to the end of a list. Below is a push function for a singly linked list. However, there is something wrong with it. Find the bug and fix the code.
 
 The head has to exist otherwise you don't have a linked list because you don't have a reference anywhere.  After we create the node, we should make it point to the head.  Then we move the head reference back to the new node.
@@ -107,4 +198,29 @@ function reverseList(inputList) {
     refNode = refNode.next;
   }
   return reverseList;
+}
+
+
+
+____________
+function removeDuplicates(inputLinkedList) {
+  var refNode = inputLinkedList.head;
+  var testValues=[];
+  testValues[0] = refNode.value;
+  var index = 1;
+  while (refNode.next !== null) {
+    if ( testValues.includes(refNode.next.value) && refNode.next.next !== null) {
+      refNode.next = refNode.next.next;
+      refNode = refNode.next;
+    } else if ( testValues.includes(refNode.next.value) ) {
+      console.log("entered elseif");
+      refNode.next = null;
+    } else {
+      testValues[index] = refNode.next.value;
+      index++;
+      refNode = refNode.next;
+    }
+  }
+  inputLinkedList.length = testValues.length;
+  return inputLinkedList;
 }
