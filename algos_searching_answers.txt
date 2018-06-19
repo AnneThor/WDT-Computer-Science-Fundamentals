@@ -1,0 +1,95 @@
+Exercises
+For exercises requiring code, you are free to use the language of your choice.
+
+Create a file named algos_searching_answers.txt and answer these questions in it:
+
+Short Answer
+1. What is a real-life scenario that uses linear search?
+
+When police have a lineup of suspects and the victim looks through one by one and chooses one.
+
+2. What is a real-life scenario that uses binary search?
+
+Hmm... I don't think that this is necessarily the way a human will approach a problem.  But say you're looking for a file in a filing cabinet.  You can first see if it's in top or bottom half, then half the drawers, then half the folders in the drawer until you eventually get to your file.
+
+3.  Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using linear search?
+
+A-B-C-D-E-F-G
+
+It will take you 7 iterations, linear search is O(n) - worst case scenario is the value is in the last array index.
+
+4.  Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using binary search?
+
+A-B-C-D-E-F-G
+
+First iteration returns:
+E-F-G
+Second iteration returns:
+G
+And then third iteration returns G or the index of G
+
+5.  Given an unsorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+
+Binary search won't work on an unsorted set, so cannot be used.  Linear search is only option (of the two).
+
+6.  Given a sorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+
+Binary search is much better.
+
+Worst case scenario with linear search you must check each index O(n).
+
+Worst case scenario with binary search is O(log n), which can be far fewer as the data set starts to scale.
+
+
+Programming Assignment:
+7.  You and a friend have set a wager to see who can find the word "Albatross" in the dictionary the fastest. Write a program to allow you to win the bet.
+
+//returns false if the word is not in the array or the index 
+//if the number is included
+function wordFind(wordArray, word) {
+  return wordFindRecursive(wordArray, word, 0, wordArray.length-1);
+}
+  
+function wordFindRecursive(wordArray, word, startIndex, endIndex) {
+    var mid = Math.floor( (endIndex-startIndex) /2 + startIndex );
+    if (wordArray[mid] === word) {
+      return mid;
+    } else if (startIndex === mid || endIndex == mid) {
+      return false; 
+    } else if ( word > wordArray[mid] ) {
+      startIndex = mid;
+      return wordFindRecursive(wordArray, word, startIndex, endIndex);
+    } else {
+      endIndex = mid;
+      return wordFindRecursive(wordArray, word, startIndex, endIndex);
+    }
+}
+
+var testArrayFalse = ["a", "act", "apple", "arctic", "art", "at", "aztec", "axe"];
+var testArray = ["a", "act", "albatross", "apple", "arctic", "art", "at", "aztec", "axe"];
+
+console.log("false", wordFind(testArrayFalse, "albatross") );
+
+console.log( "true", wordFind(testArray, "albatross") );
+
+
+8.  You work at a pet store, and a child has asked you to net the only white-spotted goldfish from the fish tank. Write a program that will help you net the right fish.
+
+Using an iterative search here 
+
+function findWhiteFish(inputFishArray) {
+  for (var i=0; i<inputFishArray.length; i++) {
+    if (inputFishArray[i] === "white") {
+      return "White fish is at index " + i;
+    }
+  }
+}
+
+var fishArray = ["gold", "gold","gold","gold","gold","white","gold","gold","gold","gold","gold"];
+
+var fishArrayTwo = ["gold", "gold", "gold", "gold","gold","gold","gold","white","gold","gold","gold","gold","gold","gold","gold","gold","gold","gold","gold","gold","gold"];
+
+console.log( findWhiteFish(fishArray) );
+console.log( findWhiteFish(fishArrayTwo) );
+
+
