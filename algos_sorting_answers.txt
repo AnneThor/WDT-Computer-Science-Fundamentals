@@ -1,0 +1,67 @@
+Exercises
+For exercises requiring code, you are free to use the language of your choice.
+
+Create a file named algos_sorting_answers.txt and answer these questions in it:
+
+1.  Write pseudocode for bubble sort.
+
+FUNCTION bubbleSort(collection)
+  IF collection length <= 1
+    RETURN collection
+  ELSE
+  FOR index=0; index < collection.length-1; index++
+    FOR each index j in the collection (beginning I+1 to end of collection length)
+      IF collection[j] < collection[j-1]
+        SET tempValue = collection[j-1]
+        SET collection[j-1]=collection[j]
+        SET collection[j]=tempValue
+      ELSE END IF
+  END
+END FUNCTION
+
+2.  Write pseudocode for quicksort.
+
+FUNCTION quicksort(collection)
+  IF collection size <= 1 RETURN
+  ELSE RETURN quicksort(collection, 0, collection.length-1)
+END FUNCTION
+
+FUNCTION quicksort(collection, startIndex, endIndex) 
+  IF collection size <= 1 RETURN
+  ELSE SET pivotIndex to 0
+  FOR j=1 to j<collection.length
+    IF collection[j]<collection[pivotIndex]
+       SET temp to collection[pivotIndex]
+       SET collection[pivotIndex] = collection[j]
+       SET collection[j] to temp
+       pivotIndex++
+    END IF
+  END FOR
+  RETURN Quicksort(collection, 0, pivotIndex-1) PLUS pivotIndex PLUS      Quick-sort(collection, pivotIndex+1, collection.length-1)
+END FUNCTION
+
+
+3.  We talked about time complexity in a previous checkpoint, and how to get an idea of the efficiency of an algorithm. After looking at the pseudocode for the above sorting methods, identify why merge sort and quick sort are much more efficient than the others. Walking through each algorithm with a few sample collections may help.
+
+Insertion Sort: you have to copy the entire array into a new array object - so you already need the memory for that.  Every time you move an item to the new object you have to scan through every item, worst case scenario it is always the last value so O(n^2)
+
+Selection Sort: this is basically the same thing, just utilizing the existing array.  Every time you shift a value to the proper position you have to shift the other values one by one.  And then go through for each subsequent sorted value.  O(n^2)
+
+Bubble Sort: Passes over the array over and over until it is returned in correct order.  Max time it's passed over is n-1 and max swaps for each iteration is n-1 so that leaves O(n^2)
+
+Merge Sort: Not iterative, so it narrows the number of operations needed.  Splits into smallest ordered sections, then uses recursive call to add back up.  O(log n) 
+
+Quick Sort: This halves the operation every time, so the worst case scenario is O(log n)
+
+The iterative solutions are more efficient because they do not require comparing every value to every single other value in the worst case scenario.
+
+4.  All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how it works. What is the ideal input for bucket sort?
+
+Bucket sort takes a collection and sorts it into "buckets" (which are just sub arrays) that hold a certain portion of the list.  Buckets are then sorted and concatenated to reform the sorted collection.
+
+Different sorting algorithms can be applied to the buckets - iterative or recursive ones.  The choice probably depends on the type of data and expected size of the dataset.
+
+One way to optimize is to return the unsorted buckets to the original array and then run insertion sort (as it will be running towards the optimal conditions where values are near to their correct positions.
+
+Ideal input would be of data that is randomly distributed in the original array and for each bucket to end up holding about the same number of inputs.
+
