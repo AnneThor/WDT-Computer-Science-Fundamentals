@@ -45,182 +45,81 @@ Example
 Input: a -> c -> d -> d -> a
 Output: a -> c -> d
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3.  The Linked List push function should take a value, create a node, and add it to the end of a list. Below is a push function for a singly linked list. However, there is something wrong with it. Find the bug and fix the code.
-
-The head has to exist otherwise you don't have a linked list because you don't have a reference anywhere.  After we create the node, we should make it point to the head.  Then we move the head reference back to the new node.
-
-LinkedList.prototype.push = function(element) {
- SET node = {
-   value: element,
-   next: null
- }
-
-   SET node.next to head
-   SET head to node
-
- }
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
 }
-
-4.  Given an unsorted singly linked list, remove all duplicates from the linked list.
-Example
-Input: a -> c -> d -> d -> a
-Output: a -> c -> d
-
 
 class LinkedList {
-
   constructor(value) {
-    this.head = null;
-    this.length = 0;
-    this.addNode(value);
+    this.head = new Node(value);
+    this.length = 1;
   }
 
-  addNode(value) {
-    const newNode = {value: value};
-    newNode.next = this.head;
-    this.head = newNode
-    this.length++;
-  }
-
-}
-
-function removeDuplicates(linkedList) {
-  var refNode = linkedList.head;
-  var testValues = [];
-  testValues[0] = refNode.value;
-  var index=1;
-  while (refNode.next !== null ) {
-    if (testValues.includes(refNode.next.value) && refNode.next.next !== null) {
-      refNode.next = refNode.next.next;
-      refNode = refNode.next;
-    } else if (testValues.includes(refNode.next.value)) {
-      refNode.next = null;
+  push(value) {
+    var newNode = new Node(value);
+    var refNode = this.head;
+    if (this.head === undefined) {
+      newNode = this.head;
     } else {
-      testValues[index] = refNode.next.value;
-      index++;
-      refNode  = refNode.next;
+      while (refNode.next !== null) {
+        refNode = refNode.next;
+      }
+      refNode.next = newNode;
+   }
+   this.length++;
+  }
+
+  removeDuplicates() {
+    if (this.head === null || this.head.next === null) {
+      return;
+    }
+    var testValues=[];
+    testValues.push(this.head.value);
+    var refNode = this.head;
+    while (refNode.next !== null && refNode.next.next !== null) {
+      if (testValues.includes(refNode.next.value)) {
+        refNode.next = refNode.next.next;
+        this.length--;
+      } else {
+        testValues.push(refNode.next.value);
+        refNode = refNode.next;
+      }
+    }
+    if (testValues.includes(refNode.next.value)) {
+      refNode.next = null;
+      this.length--;
     }
   }
-  linkedList.length = testValues.length;
-  return linkedList;
 }
-
-
 
 5.  Given an unsorted singly linked list, reverse it.
 Example
 Input: a -> b -> c -> d
 Output: d -> c -> b -> a
 
-class LinkedList {
-  constructor(value) {
-    this.head = null;
-    this.length = 0;
-    this.addNode(value);
-  }
+I added this method to the above LinkedList class:
 
-  addNode(value) {
-    const newNode = {value: value};
-    newNode.next = this.head;
-    this.head = newNode
-    this.length++;
-  }
-}
-
-function reverseList(inputList) {
-  refNode = inputList.head;
-  reverseList = new LinkedList(refNode.value);
-  while(refNode.next !== null) {
-    reverseList.addNode(refNode.next.value);
-    refNode = refNode.next;
-  }
-  return reverseList;
-}
-
-
-
-____________
-function removeDuplicates(inputLinkedList) {
-  var refNode = inputLinkedList.head;
-  var testValues=[];
-  testValues[0] = refNode.value;
-  var index = 1;
-  while (refNode.next !== null) {
-    if ( testValues.includes(refNode.next.value) && refNode.next.next !== null) {
-      refNode.next = refNode.next.next;
-      refNode = refNode.next;
-    } else if ( testValues.includes(refNode.next.value) ) {
-      console.log("entered elseif");
-      refNode.next = null;
-    } else {
-      testValues[index] = refNode.next.value;
-      index++;
+  reverseList() {
+    var valueStack=[];
+    var refNode = this.head;
+    while (refNode.next !== null) {
+      valueStack.push(refNode.value);
       refNode = refNode.next;
     }
+    valueStack.push(refNode.value);
+    //now we have a stack of all the values 
+    refNode = this.head;
+    while (refNode.next !== null) {
+      refNode.value = valueStack.pop();
+      refNode = refNode.next;
+    }
+    refNode.value = valueStack.pop();
   }
-  inputLinkedList.length = testValues.length;
-  return inputLinkedList;
-}
+
+Just using a stack data structure to reassign the values.  
+
+
+
