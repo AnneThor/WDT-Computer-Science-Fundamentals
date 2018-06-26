@@ -31,20 +31,32 @@ The differences between the iterative and recursive solutions are that the itera
 
 5.  Given a multi-dimensional collection (such as an array) where the number of dimensions is unknown, write a recursive algorithm to count the number of items in the entire collection.
 
-function recurseArray(testArray) {
-  return arrayCount(testArray, 0);
+function countArray(testArray) {
+  return recurseArray(testArray, 0);
 }
 
-function arrayCount(testArray, index) {
-  //return when index does not exist
-  //index starts at zero; increment with each call
-  if (testArray[index] === undefined) {
-    return index; //don't need to adjust bc zero indexed
+function recurseArray(testArray, index) {
+  if (testArray[index]===undefined) {
+    return 0;
+  } 
+  if (Array.isArray(testArray[index])) {
+    return 1 + recurseArray(testArray[index], 1) + recurseArray(testArray, index+1);
   } else {
-    console.log("current index", index);
-    return arrayCount(testArray, index+1);
+    return 1 + recurseArray(testArray, index+1);
   }
 }
+
+emptyArray = [];
+singleArray = [5];
+doubleArray = [5,6];
+testArray = [1, 2, [3,4,5], 6, 7, [8,[9,10]]]; //should return 10
+jacobArray = [15,[8, -12, [24, 7]], [123, 0]]; //should return 7
+
+console.log("expect 0", countArray(emptyArray));
+console.log("expect 1", countArray(singleArray));
+console.log("expect 2", countArray(doubleArray));
+console.log("expect 10", countArray(testArray));
+console.log("expect 7", countArray(jacobArray));
 
 6.  A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
 
